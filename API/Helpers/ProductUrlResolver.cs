@@ -16,6 +16,8 @@ namespace API.Helpers
 
         public string Resolve(Product source, ProductToReturnDto destination, string destMember, ResolutionContext context)
         {
+            // Check if the PictureUrl is not null or empty
+            // and prepend the API URL from configuration
             if (!string.IsNullOrEmpty(source.PictureUrl))
             {
                 return _config["ApiUrl"] + source.PictureUrl;
