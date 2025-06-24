@@ -1,5 +1,5 @@
-using API.Data;
-using API.Entities;
+using Core.Entities;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,7 +7,7 @@ namespace API.AddControllers
 {
     
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class ProductsController : ControllerBase
     {
         private readonly StoreContext _context;
