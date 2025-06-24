@@ -1,22 +1,33 @@
-using System.Diagnostics.Contracts;
+using API.Data;
+using API.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.AddControllers
 {
+    
     [ApiController]
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
-        [HttpGet]
-        public string GetProducts()
+        private readonly StoreContext _context;
+        public ProductsController(StoreContext context)
         {
-            return "List of products";
+            _context = context;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Product>>> GetProducts()
+        {
+            var products = await _context.Products.ToListAsync();
+
+            return Ok(products);
         }
 
         [HttpGet("{id}")]
-        public string GetProductById(int id)
+        public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            return $"Product details for product with ID: {id}";
+            return Ok(await _context.Products.FindAsync(id));
         }
     }
 }
