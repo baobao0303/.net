@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.AddControllers
 {
-    
+
     [ApiController]
     [Route("api/v1/[controller]")]
     public class ProductsController : ControllerBase
@@ -33,6 +33,21 @@ namespace API.AddControllers
             if (product == null) return NotFound();
 
             return Ok(product);
+        }
+
+        [HttpGet("brands")]
+        public async Task<ActionResult<List<ProductBrand>>> GetProductBrands()
+        {
+            var brands = await _repo.GetProductBrandsAsync();
+            
+
+            return Ok(brands);
+        }
+        [HttpGet("types")]
+        public async Task<ActionResult<List<ProductType>>> GetProductTypes()
+        {
+            var types = await _repo.GetProductTypesAsync();
+            return Ok(types);
         }
     }
 }
