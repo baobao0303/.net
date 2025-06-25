@@ -29,9 +29,11 @@ namespace API.AddControllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ProductToReturnDto>>> GetProducts()
+        public async Task<ActionResult<List<ProductToReturnDto>>> GetProducts(string sort)
         {
-            var spec = new ProductsWithTypesAndBrandsSpecification();
+            var spec = new ProductsWithTypesAndBrandsSpecification(
+                sort ?? string.Empty
+            );
             var products = await _productsRepo.ListAsync(spec);
 
             // return products.Select(product => new ProductToReturnDto
