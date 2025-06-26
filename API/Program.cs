@@ -19,13 +19,15 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.UseRouting();  
+app.UseCors("CorsPolicy");
+
 // Configure the http request pipeline.
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
 app.UseStaticFiles();
 
-app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 

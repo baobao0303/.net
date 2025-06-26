@@ -14,10 +14,15 @@ namespace Core.Specifications
             get => _pageSize;
             set => _pageSize = Math.Clamp(value, MinPageSize, MaxPageSize);
         }
-
-        public string? Search { get; set; }
         public int? BrandId { get; set; }
         public int? TypeId { get; set; }
         public string? Sort { get; set; }
+
+        private string _search;
+        public string Search
+        {
+            get => _search ?? string.Empty;
+            set => _search = value?.ToLower() ?? string.Empty;
+        }
     }
 }
