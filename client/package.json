@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "start": "ng serve --project=app",
+    "build": "ng build --project=app",
+    "build:core": "ng build --project=@core/base && ng build --project=@core/domain",
+    "build:application": "ng build --project=@application/base",
+    "build:infrastructure": "ng build --project=@infrastructure/base"
   },
   "prettier": {
     "overrides": [
@@ -20,15 +21,18 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/cdk": "^20.0.4",
     "@angular/common": "^20.0.5",
     "@angular/compiler": "^20.0.5",
     "@angular/core": "^20.0.5",
     "@angular/forms": "^20.0.0",
+    "@angular/material": "^20.0.4",
     "@angular/platform-browser": "^20.0.5",
     "@angular/platform-browser-dynamic": "^20.0.5",
     "@angular/router": "^20.0.0",
     "@tailwindcss/postcss": "^4.1.10",
     "font-awesome": "^4.7.0",
+    "ngxtension": "^5.1.0",
     "postcss": "^8.5.6",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.1.10",
@@ -46,6 +50,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-packagr": "^20.0.0",
     "typescript": "~5.8.2"
   }
 }

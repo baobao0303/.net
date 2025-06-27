@@ -23,21 +23,16 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PictureUrl")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Price")
+                        .HasColumnType("REAL");
 
                     b.Property<int>("ProductBrandId")
                         .HasColumnType("INTEGER");
@@ -100,6 +95,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.Navigation("ProductType");
                 });
+#pragma warning restore 612, 618
         }
     }
 }
