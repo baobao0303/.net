@@ -21,6 +21,7 @@ import { environment } from '../environments/environment';
         const uri = environment.URI;
         var appContext = new AppContext();
         appContext.endPoint = uri;
+        console.log('AppContext initialized with URI:', uri);
         return appContext;
       },
     },

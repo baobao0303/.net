@@ -9,6 +9,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddApplicationServices(builder.Configuration);
 
+// Configure CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,32 +31,33 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseRouting();  
+app.UseRouting();
+
+// ⚠️ UseCors must come right after UseRouting and before any middleware that handles requests (e.g. UseAuthorization)
 app.UseCors("CorsPolicy");
 
-// Configure the http request pipeline.
+// Middleware for exception handling and status code pages
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
-app.UseStaticFiles();
-
-
+// HTTPS, static files, authorization
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 app.UseAuthorization();
 
+// Route to controllers
 app.MapControllers();
 
+// Migrate database and seed data
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 var context = services.GetRequiredService<StoreContext>();
 var logger = services.GetRequiredService<ILogger<Program>>();
+
 try
 {
-    await context.Database.MigrateAsync();
-    context.Database.EnsureDeleted(); 
-    context.Database.Migrate();  
-    await StoreContextSeed.SeedAsync(context);
+    await context.Database.MigrateAsync(); // only migrate, don't drop
+    await StoreContextSeed.SeedAsync(context); // seed sample data
 }
 catch (Exception ex)
 {

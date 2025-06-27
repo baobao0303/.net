@@ -4,3 +4,4 @@
 
 export * from './lib/vato';
 export * from './lib/vrto';
+export * from './lib/product';

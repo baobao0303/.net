@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { VIEW_CONTEXT } from '@view/base';
+import { Component, OnInit } from '@angular/core';
+import { VIEW_CONTEXT, ViewBase } from '@view/base';
 import { NavbarContext } from './navbar.context';
 
 @Component({
@@ -9,4 +9,11 @@ import { NavbarContext } from './navbar.context';
   styleUrls: ['./navbar.component.scss'],
   providers: [{ provide: VIEW_CONTEXT, useClass: NavbarContext }],
 })
-export class NavbarComponent {}
+export class NavbarComponent extends ViewBase implements OnInit {
+  ngOnInit(): void {
+    this.navbarContext().submit();
+  }
+  public navbarContext() {
+    return this.getContextAs<NavbarContext>();
+  }
+}
