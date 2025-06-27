@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
+import { VIEW_COMMAND_MAPPER_REGISTRY } from '@view/base';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,8 @@ import { environment } from '../environments/environment';
         return appContext;
       },
     },
+    // TO Do: need build command mapper registry
+    { provide: VIEW_COMMAND_MAPPER_REGISTRY, useValue: {} },
   ],
 })
 export class AppModule {}
