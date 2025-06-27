@@ -249,6 +249,96 @@
           }
         }
       }
+    },
+    "@view/base": {
+      "projectType": "library",
+      "root": "projects/view/base",
+      "sourceRoot": "projects/view/base/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/view/base/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/view/base/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/view/base/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "@infrastructure/authorization": {
+      "projectType": "library",
+      "root": "projects/infrastructure/authorization",
+      "sourceRoot": "projects/infrastructure/authorization/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/infrastructure/authorization/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/infrastructure/authorization/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/infrastructure/authorization/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "@application/messages": {
+      "projectType": "library",
+      "root": "projects/application/messages",
+      "sourceRoot": "projects/application/messages/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/application/messages/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/application/messages/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/application/messages/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {
