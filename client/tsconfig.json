@@ -3,6 +3,14 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "@application/base": ["./dist/application/base"],
+      "@application/commands": ["./dist/application/commands"],
+      "@application/queries": ["./dist/application/queries"],
+      "@core/base": ["./dist/core/base"],
+      "@core/domain": ["./dist/core/domain"],
+      "@infrastructure/base": ["./dist/infrastructure/base"]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -25,10 +33,52 @@
   "files": [],
   "references": [
     {
-      "path": "./tsconfig.app.json"
+      "path": "./projects/app/tsconfig.app.json"
     },
     {
-      "path": "./tsconfig.spec.json"
+      "path": "./projects/app/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/application/base/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/application/base/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/application/commands/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/application/commands/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/application/queries/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/application/queries/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/core/base/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/core/base/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/core/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/core/domain/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/infrastructure/base/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/infrastructure/base/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/app/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/app/tsconfig.spec.json"
     }
   ]
 }
