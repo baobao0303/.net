@@ -39,10 +39,10 @@
               <input
                 type="text"
                 placeholder="Túi rác Inochi 79k/8 cuộn"
-                class="w-full px-2 py-2 text-sm border-0 outline-none bg-transparent"
+                class="w-full px-2 py-2 text-sm sm:text-sm md:text-base border-0 outline-none bg-transparent"
               />
               <button
-                class="w-[92px] h-[38px] p-1 bg-transparent text-blue-600 text-sm rounded-tr-[8px] rounded-br-[8px] flex items-center justify-center relative button-search"
+                class="hidden md:flex w-[92px] h-[38px] p-1 bg-transparent text-sm md:text-base text-blue-600 rounded-tr-[8px] rounded-br-[8px] items-center justify-center relative button-search"
               >
                 Tìm kiếm
               </button>
@@ -51,7 +51,7 @@
         </div>
 
         <!-- Icons -->
-        <div class="flex items-center gap-4 shrink-0 ml-[48px]">
+        <div class="flex items-center gap-4 shrink-0 ml-0 md:ml-[48px]">
           <!-- Home - ẩn trên mobile -->
           <div class="hidden lg:flex items-center cursor-pointer">
             <div
@@ -155,7 +155,7 @@
 </div>
 
 <div
-  class="relative z-[1] flex flex-row items-center py-3 px-0 gap-1 bg-white border-y border-solid border-[rgb(235,235,240)]"
+  class="relative z-[1] hidden md:flex flex-row items-center py-3 px-0 gap-1 bg-white border-y border-solid border-[rgb(235,235,240)]"
 >
   <a href="#" class="w-[1280px] px-6 mx-auto flex gap-3 items-center">
     <div
@@ -165,103 +165,20 @@
     </div>
 
     <div class="flex gap-3 items-center">
-      <div class="flex gap-1 px-[6px] items-center">
-        <picture class="webpimg-container">
-          <source
-            type="image/webp"
-            src="/public/icons/authentic-products.png"
-          />
+      <ng-container *ngFor="let item of commitments()">
+        <div class="flex gap-1 px-[6px] items-center">
           <img
-            class="sc-82b4dcf2-0 ldcZGa title-img-0"
-            src="/public/icons/authentic-products.png"
-            alt="authentic-products"
+            [src]="item.icon"
+            [alt]="item.title"
             width="20"
             height="20"
+            class="w-[20px] h-[20px]"
           />
-        </picture>
-        <div class="text-[#27272A] text-[12px] font-medium whitespace-nowrap">
-          100% hàng thật
+          <div class="text-[#27272A] text-[12px] font-medium whitespace-nowrap">
+            {{ item.title }}
+          </div>
         </div>
-      </div>
-      <div class="flex gap-1 px-[6px] items-center">
-        <picture class="webpimg-container">
-          <source type="image/webp" src="/public/icons/shipping-policy.png" />
-          <img
-            class="sc-82b4dcf2-0 ldcZGa title-img-0"
-            src="/public/icons/shipping-policy.png"
-            alt="authentic-products"
-            width="20"
-            height="20"
-          />
-        </picture>
-        <div class="text-[#27272A] text-[12px] font-medium whitespace-nowrap">
-          Freeship mọi đơn
-        </div>
-      </div>
-      <div class="flex gap-1 px-[6px] items-center">
-        <picture class="webpimg-container">
-          <source type="image/webp" src="/public/icons/price-guarantee.png" />
-          <img
-            class="sc-82b4dcf2-0 ldcZGa title-img-0"
-            src="/public/icons/price-guarantee.png"
-            alt="authentic-products"
-            width="20"
-            height="20"
-          />
-        </picture>
-        <div class="text-[#27272A] text-[12px] font-medium whitespace-nowrap">
-          Hoàn 200% nếu hàng giả
-        </div>
-      </div>
-      <div class="flex gap-1 px-[6px] items-center">
-        <picture class="webpimg-container">
-          <source type="image/webp" src="/public/icons/return-policy.png" />
-          <img
-            class="sc-82b4dcf2-0 ldcZGa title-img-0"
-            src="/public/icons/return-policy.png"
-            alt="authentic-products"
-            width="20"
-            height="20"
-          />
-        </picture>
-        <div class="text-[#27272A] text-[12px] font-medium whitespace-nowrap">
-          30 ngày đổi trả
-        </div>
-      </div>
-      <div class="flex gap-1 px-[6px] items-center">
-        <picture class="webpimg-container">
-          <source type="image/webp" src="/public/icons/fast-delivery.png" />
-          <img
-            class="sc-82b4dcf2-0 ldcZGa title-img-0"
-            src="/public/icons/fast-delivery.png"
-            alt="authentic-products"
-            width="20"
-            height="20"
-          />
-        </picture>
-        <div class="text-[#27272A] text-[12px] font-medium whitespace-nowrap">
-          Giao nhanh 2h
-        </div>
-      </div>
-
-      <div class="flex gap-1 px-[6px] items-center">
-        <picture class="webpimg-container">
-          <source
-            type="image/webp"
-            src="/public/icons/super-cheap-prices.png"
-          />
-          <img
-            class="sc-82b4dcf2-0 ldcZGa title-img-0"
-            src="/public/icons/super-cheap-prices.png"
-            alt="authentic-products"
-            width="20"
-            height="20"
-          />
-        </picture>
-        <div class="text-[#27272A] text-[12px] font-medium whitespace-nowrap">
-          Giá siêu rẻ
-        </div>
-      </div>
+      </ng-container>
     </div>
   </a>
 </div>

@@ -1,4 +1,5 @@
-<ng-template #categoryTemplate let-item>
+<!-- COMMON TEMPLATE -->
+<ng-template #commonTemplate let-item>
   <a
     [title]="item.title"
     [href]="item.href"
@@ -22,15 +23,49 @@
   </a>
 </ng-template>
 
+<!-- CATEGORIES TEMPLATE -->
+<ng-template #categoriesTemplate let-item>
+  <div class="w-full">
+    <a
+      [href]="item.href"
+      class="flex flex-col items-center gap-2 w-[64px] sm:w-[80px] md:w-[100px] text-[#0b74e5] no-underline bg-transparent"
+    >
+      <div
+        class="w-[36px] h-[36px] sm:w-[40px] sm:h-[40px] md:w-[44px] md:h-[44px] border border-[rgba(0,0,0,0.05)] rounded-[35%] overflow-hidden box-content bg-white"
+      >
+        <picture class="webpimg-container">
+          <source type="image/webp" [srcset]="item.image" />
+          <img
+            [src]="item.image"
+            alt="quick-link-icon"
+            class="w-full h-full object-contain block max-w-full border-none"
+          />
+        </picture>
+      </div>
+      <div
+        [ngClass]="{
+          'text-[rgb(217,56,67)]': item.title === 'TOP DEAL',
+          'text-[#242424]': item.title !== 'TOP DEAL'
+        }"
+        class="text-center font-inter font-medium text-[10px] sm:text-[11px] md:text-sm leading-[15px] sm:leading-[17px] md:leading-[150%] min-h-[30px] sm:min-h-[34px] md:min-h-[36px] overflow-hidden text-ellipsis line-clamp-2 break-words"
+      >
+        {{ item.title }}
+      </div>
+    </a>
+  </div>
+</ng-template>
+
+<!-- CONTENT -->
 <app-header [containerRef]="containerRef"></app-header>
 <!-- Dynamic component host -->
 <ng-template appDynamicHost></ng-template>
 
 <main>
-  <div class="w-[1280px] px-6 mx-auto">
+  <div class="max-w-[1280px] w-full px-4 sm:px-6 lg:px-8 mx-auto">
     <div class="flex pt-4 justify-between">
+      <!-- Sidebar -->
       <div
-        class="w-[230px] max-h-screen sticky top-4 overflow-y-scroll bg-transparent flex flex-col pb-[117px] text-[rgb(56,56,61)] text-[14px] leading-[20px] rounded-tl-[4px] rounded-bl-[4px] scrollbar-hide"
+        class="hidden lg:flex w-[230px] max-h-screen sticky top-4 overflow-y-scroll bg-transparent flex-col pb-[117px] text-[rgb(56,56,61)] text-[14px] leading-[20px] rounded-tl-[4px] rounded-bl-[4px] scrollbar-hide"
       >
         <div
           class="relative flex mb-4 p-[12px_8px] flex-col bg-white rounded-[8px]"
@@ -42,15 +77,62 @@
           </div>
           <ng-container
             *ngFor="let category of categories()"
-            [ngTemplateOutlet]="categoryTemplate"
+            [ngTemplateOutlet]="commonTemplate"
             [ngTemplateOutletContext]="{ $implicit: category }"
+          ></ng-container>
+        </div>
+
+        <div
+          class="relative flex mb-4 p-[12px_8px] flex-col bg-white rounded-[8px]"
+        >
+          <div
+            class="mb-2 pl-4 font-bold text-[14px] leading-[150%] text-[rgb(39,39,42)]"
+          >
+            Tiện ích
+          </div>
+          <ng-container
+            *ngFor="let quickActions of quickActions()"
+            [ngTemplateOutlet]="commonTemplate"
+            [ngTemplateOutletContext]="{ $implicit: quickActions }"
+          ></ng-container>
+        </div>
+
+        <div
+          class="relative flex mb-4 p-[12px_8px] flex-col bg-white rounded-[8px]"
+        >
+          <ng-container
+            *ngFor="let seller of seller()"
+            [ngTemplateOutlet]="commonTemplate"
+            [ngTemplateOutletContext]="{ $implicit: seller }"
           ></ng-container>
         </div>
       </div>
 
+      <!-- Content -->
       <div
-        class="w-[calc(100%-254px)] overflow-x-hidden flex flex-col gap-3"
-      ></div>
+        class="w-full lg:w-[calc(100%-254px)] overflow-x-hidden flex flex-col gap-3"
+      >
+        <div
+          class="flex flex-col items-start p-4 gap-3 self-stretch rounded-[8px] bg-[var(--Alias-Theme,_#fff)]"
+        ></div>
+
+        <div
+          class="flex flex-col items-start p-4 gap-3 self-stretch rounded-[8px] bg-[var(--Alias-Theme,_#fff)]"
+        >
+          <div
+            class="grid grid-cols-5 lg:grid-cols-10 gap-x-2 gap-y-4 justify-items-center self-stretch"
+          >
+            <div *ngFor="let item of quickLinks()">
+              <ng-container
+                *ngTemplateOutlet="
+                  categoriesTemplate;
+                  context: { $implicit: item }
+                "
+              ></ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </main>
