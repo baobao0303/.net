@@ -1,2 +1,8 @@
-<h1 class="text-3xl font-bold underline">Hello world!</h1>
-<i class="fa fa-user"></i>
+<router-outlet>
+  @if (isLoading) {
+  <div class="loading-overlay">
+    <!-- TO DO: NEED TRANFORM LOGO COMPANY -->
+    <mat-spinner class="width-46px"></mat-spinner>
+  </div>
+  }
+</router-outlet>

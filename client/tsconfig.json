@@ -5,26 +5,14 @@
   "compilerOptions": {
     "paths": {
       "@application/base": ["./dist/application/base"],
-      "@application/commands": [
-        "./dist/application/commands"
-      ],
-      "@application/messages": [
-        "./dist/application/messages"
-      ],
+      "@application/commands": ["./dist/application/commands"],
+      "@application/messages": ["./dist/application/messages"],
       "@application/queries": ["./dist/application/queries"],
       "@core/base": ["./dist/core/base"],
-      "@core/domain": [
-        "./dist/core/domain"
-      ],
-      "@infrastructure/authorization": [
-        "./dist/infrastructure/authorization"
-      ],
-      "@infrastructure/base": [
-        "./dist/infrastructure/base"
-      ],
-      "@view/base": [
-        "./dist/view/base"
-      ]
+      "@core/domain": ["./dist/core/domain"],
+      "@infrastructure/authorization": ["./dist/infrastructure/authorization"],
+      "@infrastructure/base": ["./dist/infrastructure/base"],
+      "@view/base": ["./dist/view/base"]
     },
     "strict": true,
     "noImplicitOverride": true,
