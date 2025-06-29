@@ -13,7 +13,6 @@ import { BROWSER_STORAGE } from '@infrastructure/base';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   standalone: false,
-  providers: [{ provide: VIEW_CONTEXT, useClass: NavbarContext }],
 })
 export class AppComponent {
   private readonly router = inject(Router);

@@ -9,6 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { VIEW_COMMAND_MAPPER_REGISTRY } from '@view/base';
 
 @NgModule({
   declarations: [AppComponent],
