@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 
 namespace API.Extensions
 {
@@ -24,9 +25,17 @@ namespace API.Extensions
                     Description = "This is a sample API for Skinet, a fictional e-commerce platform.",
                 });
             });
+            services.AddSingleton<IConnectionMultiplexer>(c =>
+            {
+                var redisConnectionString = config.GetConnectionString("Redis")
+                    ?? throw new InvalidOperationException("Redis connection string is missing.");
+                
+                var configuration = ConfigurationOptions.Parse(redisConnectionString, true);
+                return ConnectionMultiplexer.Connect(configuration);
+            });
             services.AddDbContext<StoreContext>(options =>
                 options.UseSqlite(config.GetConnectionString("DefaultConnection")));
-
+            services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
