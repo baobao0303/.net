@@ -4,7 +4,13 @@ import { Routes, RouterModule } from '@angular/router';
 const appRoutes: Routes = [
   {
     path: '',
+    redirectTo: '',
     pathMatch: 'full',
+  },
+  {
+    path: '',
+    loadComponent: () =>
+      import('./views/home-page/home-page.component').then((c) => c.HomePage),
   },
 ];
 
