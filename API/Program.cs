@@ -1,6 +1,9 @@
 using API.Extensions;
 using API.Middleware;
+using Core.Entities.Identity;
 using Infrastructure.Data;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddIdentityServices(builder.Configuration);
 
 // Configure CORS
 builder.Services.AddCors(options =>
@@ -36,6 +40,10 @@ app.UseRouting();
 // ⚠️ UseCors must come right after UseRouting and before any middleware that handles requests (e.g. UseAuthorization)
 app.UseCors("CorsPolicy");
 
+// Authentication and authorization
+app.UseAuthentication();
+app.UseAuthorization();
+
 // Middleware for exception handling and status code pages
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
@@ -53,11 +61,15 @@ using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 var context = services.GetRequiredService<StoreContext>();
 var logger = services.GetRequiredService<ILogger<Program>>();
+var identityContext = services.GetRequiredService<AppIdentityDbContext>();
+var userManager = services.GetRequiredService<UserManager<AppUser>>();
 
 try
 {
-    await context.Database.MigrateAsync(); // only migrate, don't drop
+    await context.Database.MigrateAsync(); // only migrate, don't drop\
+    await identityContext.Database.MigrateAsync();
     await StoreContextSeed.SeedAsync(context); // seed sample data
+    await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
 }
 catch (Exception ex)
 {
