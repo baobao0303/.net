@@ -186,7 +186,8 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/app/public"
+                "input": "projects/app/public",
+                "output": "/public"
               }
             ],
             "styles": [
@@ -276,10 +277,7 @@
           "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/view/base/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }
@@ -306,10 +304,7 @@
           "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/infrastructure/authorization/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }
@@ -336,10 +331,7 @@
           "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/application/messages/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }

@@ -1,3 +1,56 @@
+<ng-template #categoryTemplate let-item>
+  <a
+    [title]="item.title"
+    [href]="item.href"
+    class="bg-transparent no-underline text-[rgb(56,56,61)] hover:text-blue-700 hover:bg-gray-200 flex items-center px-4 py-[7px] rounded-[8px] cursor-pointer transition duration-200 font-medium hover:shadow-sm"
+  >
+    <div class="flex-none w-[32px] h-[32px] mr-2 leading-none">
+      <img
+        [src]="item.image"
+        [alt]="item.title"
+        width="32"
+        height="32"
+        class="w-8 h-8 opacity-100 object-contain w-full h-full block"
+      />
+    </div>
+    <div
+      [title]="item.title"
+      class="flex gap-1 items-center font-normal text-[14px] leading-[150%] text-[rgb(39,39,42)]"
+    >
+      {{ item.title }}
+    </div>
+  </a>
+</ng-template>
+
 <app-header [containerRef]="containerRef"></app-header>
 <!-- Dynamic component host -->
 <ng-template appDynamicHost></ng-template>
+
+<main>
+  <div class="w-[1280px] px-6 mx-auto">
+    <div class="flex pt-4 justify-between">
+      <div
+        class="w-[230px] max-h-screen sticky top-4 overflow-y-scroll bg-transparent flex flex-col pb-[117px] text-[rgb(56,56,61)] text-[14px] leading-[20px] rounded-tl-[4px] rounded-bl-[4px] scrollbar-hide"
+      >
+        <div
+          class="relative flex mb-4 p-[12px_8px] flex-col bg-white rounded-[8px]"
+        >
+          <div
+            class="mb-2 pl-4 font-bold text-[14px] leading-[150%] text-[rgb(39,39,42)]"
+          >
+            Danh mục
+          </div>
+          <ng-container
+            *ngFor="let category of categories()"
+            [ngTemplateOutlet]="categoryTemplate"
+            [ngTemplateOutletContext]="{ $implicit: category }"
+          ></ng-container>
+        </div>
+      </div>
+
+      <div
+        class="w-[calc(100%-254px)] overflow-x-hidden flex flex-col gap-3"
+      ></div>
+    </div>
+  </div>
+</main>

@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, ComponentRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ModalService } from '@core/base';
+import { EmailLoginModalComponent } from '../email-login-modal/email-login-modal.component';
 
 @Component({
   selector: 'app-login-modal',
@@ -12,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class LoginModalComponent {
   phoneNumber = '';
   componentRef!: ComponentRef<any>;
+  constructor(private modalService: ModalService) {}
 
   closeModal() {
     if (this.componentRef) {
@@ -48,7 +51,9 @@ export class LoginModalComponent {
 
   switchToEmail(event: Event) {
     event.preventDefault();
-    console.log('Switch to email login');
+    this.closeModal();
+    const componentRef = this.modalService.openModal(EmailLoginModalComponent);
+    componentRef.instance.componentRef = componentRef;
     // Implement email login switch
   }
 
