@@ -38,11 +38,15 @@
               />
               <input
                 type="text"
-                placeholder="Túi rác Inochi 79k/8 cuộn"
-                class="w-full px-2 py-2 text-sm sm:text-sm md:text-base border-0 outline-none bg-transparent"
+                [placeholder]="searchPlaceholder"
+                [value]="searchValue()"
+                (input)="searchValue.set($any($event.target).value)"
+                class="w-full px-2 py-2 text-sm sm:text-sm md:text-base placeholder:text-xs md:placeholder:text-sm border-0 outline-none bg-transparent"
               />
+
               <button
-                class="hidden md:flex w-[92px] h-[38px] p-1 bg-transparent text-sm md:text-base text-blue-600 rounded-tr-[8px] rounded-br-[8px] items-center justify-center relative button-search"
+                class="hidden md:flex w-[92px] h-[38px] p-1 bg-transparent text-sm md:text-sm text-blue-600 rounded-tr-[8px] rounded-br-[8px] items-center justify-center relative button-search"
+                (click)="onSearch()"
               >
                 Tìm kiếm
               </button>

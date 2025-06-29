@@ -3,7 +3,7 @@ import { Component, Input, signal } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ViewContainerRef } from '@angular/core';
 import { ModalService } from '@core/base';
-import { LoginModalComponent } from '../../component/login-modal/login-modal.component';
+import { LoginModalComponent } from '../../components/login-modal/login-modal.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -45,11 +45,17 @@ export class HeaderComponent {
       this.modalService.setRootViewContainerRef(ref);
     }
   }
+  @Input() searchPlaceholder = 'Túi rác Inochi 79k/8 cuộn...';
+  public searchValue = signal('');
 
   constructor(private modalService: ModalService) {}
 
   openLoginModal() {
     const componentRef = this.modalService.openModal(LoginModalComponent);
     componentRef.instance.componentRef = componentRef;
+  }
+  onSearch() {
+    console.log('Searching for:', this.searchValue());
+    // TODO: Implement search
   }
 }

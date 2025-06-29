@@ -1,0 +1,132 @@
+<!-- Template -->
+<ng-template #filterItemTemplate let-item let-i="index" let-last="last">
+  <div class="flex items-center py-3">
+    <div class="flex overflow-hidden flex-[1_1_0%] relative">
+      <div class="flex transition duration-300 translate-x-0">
+        <div class="flex items-center justify-center cursor-pointer">
+          <!-- Checkbox -->
+          <div
+            class="flex items-center mr-2 focus-visible:ring-2 focus-visible:ring-blue-500 focus:outline-none rounded"
+            tabindex="0"
+            (click)="item.active = !item.active"
+          >
+            <span
+              class="box flex items-center justify-center gap-1 relative group"
+            >
+              <!-- Default -->
+              <img
+                *ngIf="!item.active"
+                class="icon-check-off w-6 h-6 object-contain shrink-0 group-hover:hidden group-focus:hidden"
+                src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                alt="default-checkbox"
+              />
+              <!-- Hover -->
+              <img
+                *ngIf="!item.active"
+                class="icon-check-hover w-6 h-6 object-contain shrink-0 hidden group-hover:block group-focus:block"
+                src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                alt="hovered-checkbox"
+              />
+              <!-- Active -->
+              <img
+                *ngIf="item.active"
+                class="icon-check-on w-6 h-6 object-contain shrink-0"
+                src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                alt="active-checkbox"
+              />
+            </span>
+          </div>
+
+          <!-- Icon or Rating Stars -->
+          <ng-container *ngIf="item.label !== 'từ 4 sao'; else starBlock">
+            <img
+              [src]="item.icon"
+              [alt]="item.label"
+              class="block object-contain h-[17px] w-auto mr-2 shrink-0"
+            />
+          </ng-container>
+
+          <ng-template #starBlock>
+            <div class="flex items-center ml-1 -translate-y-[1px]">
+              <ng-container *ngFor="let n of [0, 1, 2, 3, 4]">
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="shrink-0"
+                  [attr.fill]="
+                    n < getFloor(item.rating) ? '#FFC400' : '#DDDDE3'
+                  "
+                >
+                  <path
+                    d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                  />
+                </svg>
+              </ng-container>
+            </div>
+          </ng-template>
+
+          <!-- Text -->
+          <div class="text-sm leading-[21px] text-[#27272a] mt-[2px] ml-1">
+            <span class="line-clamp-2 overflow-hidden">{{ item.label }}</span>
+          </div>
+        </div>
+
+        <!-- Divider (giữa các item, trừ cuối) -->
+        <div
+          *ngIf="!last"
+          class="w-px h-[34px] bg-[#ebebf0] mx-4 shrink-0"
+        ></div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- HEADER -->
+<app-header
+  [searchPlaceholder]="query()"
+  [containerRef]="containerRef"
+></app-header>
+<!-- Dynamic component host -->
+<ng-template appDynamicHost></ng-template>
+
+<!-- CONTENT -->
+<main class="w-full max-w-[1440px] xl:max-w-[1280px] mx-auto px-6">
+  <app-breadcrumb [items]="breadcrumbItems()" />
+  <div class="grid grid-cols-1 md:grid-cols-[1fr_230px] gap-6 mb-6">
+    <div class="overflow-hidden">
+      <div class="bg-white rounded-[8px] mb-2 px-4 py-0">
+        <div class="flex py-3 border-b border-[#ebebf0]">
+          <div class="flex overflow-hidden flex-1 relative">hello</div>
+        </div>
+        <div class="flex overflow-hidden flex-[1_1_0%] relative">
+          <div class="flex items-center">
+            <!-- tempplate -->
+            <ng-container
+              *ngFor="let filter of filters; let i = index; let last = last"
+            >
+              <ng-container
+                [ngTemplateOutlet]="filterItemTemplate"
+                [ngTemplateOutletContext]="{
+                  $implicit: filter,
+                  index: i,
+                  last: last
+                }"
+              ></ng-container>
+            </ng-container>
+          </div>
+          <div class="ml-auto flex shrink-0">
+            <div class="flex items-center ml-4">
+              <div class="text-sm leading-[21px] text-[#808089] mr-2">
+                Sắp xếp
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div></div>
+    </div>
+    <div></div>
+  </div>
+</main>
