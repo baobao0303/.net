@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { SearchComponent } from './views/search/search.component';
 
 const appRoutes: Routes = [
   {
@@ -12,6 +13,7 @@ const appRoutes: Routes = [
     loadComponent: () =>
       import('./views/home-page/home-page.component').then((c) => c.HomePage),
   },
+  { path: 'search', component: SearchComponent },
 ];
 
 @NgModule({
