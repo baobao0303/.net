@@ -22,9 +22,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         const uri = environment.URI;
         var appContext = new AppContext();
         appContext.endPoint = uri;
+        console.log('AppContext initialized with URI:', uri);
         return appContext;
       },
     },
+    // TO Do: need build command mapper registry
+    { provide: VIEW_COMMAND_MAPPER_REGISTRY, useValue: {} },
   ],
 })
 export class AppModule {}
