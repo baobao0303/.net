@@ -1,0 +1,93 @@
+<div class="modal-backdrop" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <button class="close-button" (click)="closeModal()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path
+          d="M18 6L6 18M6 6l12 12"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+    </button>
+
+    <div class="modal-content">
+      <div class="left-section">
+        <div class="header">
+          <button class="back-button" (click)="goBack()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M15 18l-6-6 6-6"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <h2>Đăng nhập bằng email</h2>
+          <p class="subtitle">Nhập email và mật khẩu tài khoản Tiki</p>
+        </div>
+
+        <div class="form-section">
+          <div class="input-group">
+            <input
+              type="email"
+              [(ngModel)]="email"
+              placeholder="abc@email.com"
+              class="email-input"
+            />
+          </div>
+
+          <div class="input-group password-group">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              [(ngModel)]="password"
+              placeholder="Mật khẩu"
+              class="password-input"
+            />
+            <button
+              type="button"
+              class="show-password-btn"
+              (click)="togglePassword()"
+            >
+              {{ showPassword ? "Ẩn" : "Hiện" }}
+            </button>
+          </div>
+
+          <button class="login-button" (click)="onLogin()">Đăng nhập</button>
+
+          <div class="forgot-password">
+            <a href="#" (click)="openForgotPassword($event)">Quên mật khẩu?</a>
+          </div>
+
+          <div class="register-section">
+            <span class="register-text">Chưa có tài khoản?</span>
+            <a href="#" (click)="onRegister($event)" class="register-link"
+              >Tạo tài khoản</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="right-section">
+        <div class="illustration">
+          <div class="character">
+            <div class="character-head"></div>
+            <div class="character-body"></div>
+            <div class="desk"></div>
+            <div class="sparkles">
+              <div class="sparkle sparkle-1">✨</div>
+              <div class="sparkle sparkle-2">✨</div>
+              <div class="sparkle sparkle-3">✨</div>
+            </div>
+          </div>
+        </div>
+        <div class="promo-text">
+          <h3>Mua sắm tại Tiki</h3>
+          <p>Siêu ưu đãi mỗi ngày</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

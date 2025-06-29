@@ -1,0 +1,85 @@
+<div class="modal-backdrop" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <button class="close-button" (click)="closeModal()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path
+          d="M18 6L6 18M6 6l12 12"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+    </button>
+
+    <div class="modal-content">
+      <div class="left-section">
+        <div class="header">
+          <h2>Xin chào,</h2>
+          <p class="subtitle">Đăng nhập hoặc Tạo tài khoản</p>
+        </div>
+
+        <div class="form-section">
+          <div class="input-group">
+            <input
+              type="text"
+              [(ngModel)]="phoneNumber"
+              placeholder="Số điện thoại"
+              class="phone-input"
+              (input)="filterNonDigits($event)"
+              (keypress)="blockNonDigits($event)"
+              (paste)="handlePaste($event)"
+              inputmode="numeric"
+              autocomplete="off"
+            />
+          </div>
+
+          <button class="continue-button" (click)="onContinue()">
+            Tiếp Tục
+          </button>
+
+          <div class="email-login">
+            <a href="#" (click)="switchToEmail($event)">Đăng nhập bằng email</a>
+          </div>
+
+          <div class="divider">
+            <span>Hoặc tiếp tục bằng</span>
+          </div>
+
+          <div class="social-buttons">
+            <button class="facebook-button" (click)="loginWithFacebook()">
+              <div class="fb-icon">f</div>
+            </button>
+            <button class="google-button" (click)="loginWithGoogle()">
+              <div class="google-icon">G</div>
+            </button>
+          </div>
+
+          <div class="footer-text">
+            Bằng việc tiếp tục, bạn đã đọc và đồng ý với
+            <a href="#">điều khoản sử dụng</a> và
+            <a href="#">Chính sách bảo mật thông tin cá nhân</a> của Tiki
+          </div>
+        </div>
+      </div>
+
+      <div class="right-section">
+        <div class="illustration">
+          <div class="character">
+            <div class="character-head"></div>
+            <div class="character-body"></div>
+            <div class="desk"></div>
+            <div class="sparkles">
+              <div class="sparkle sparkle-1">✨</div>
+              <div class="sparkle sparkle-2">✨</div>
+              <div class="sparkle sparkle-3">✨</div>
+            </div>
+          </div>
+        </div>
+        <div class="promo-text">
+          <h3>Mua sắm tại Tiki</h3>
+          <p>Siêu ưu đãi mỗi ngày</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

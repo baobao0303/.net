@@ -1,1 +1,8 @@
-<router-outlet></router-outlet>
+<router-outlet>
+  @if (isLoading) {
+  <div class="loading-overlay">
+    <!-- TO DO: NEED TRANFORM LOGO COMPANY -->
+    <mat-spinner class="width-46px"></mat-spinner>
+  </div>
+  }
+</router-outlet>

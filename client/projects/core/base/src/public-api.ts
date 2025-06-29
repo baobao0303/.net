@@ -9,3 +9,4 @@ export * from './lib/interface.writeable.repository';
 export * from './lib/bo.base';
 export * from './lib/paging.base.response';
 export * from './lib/paging.base.request';
+export * from './lib/services';
