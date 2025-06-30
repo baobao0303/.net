@@ -1,8 +1,11 @@
 
+using System.Text;
 using Core.Entities.Identity;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace API.Extensions
 {
@@ -21,10 +24,22 @@ namespace API.Extensions
             })
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddSignInManager<SignInManager<AppUser>>();
-            services.AddAuthentication();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+                options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(config["Token:Key"]
+                            ?? throw new InvalidOperationException("Token key is missing."))),
+                        ValidateIssuer = config["Token:Issuer"] != null,
+                        ValidateAudience = true
+                    };
+                }
+            );
             services.AddAuthorization();
 
-            return services;
+            return services;     
         }
     }
 }
