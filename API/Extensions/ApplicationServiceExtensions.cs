@@ -16,16 +16,6 @@ namespace API.Extensions
         )
         {
             services.AddOpenApi();
-            services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-                {
-                    Title = "Skinet API",
-                    Version = "v1",
-                    Description = "This is a sample API for Skinet, a fictional e-commerce platform.",
-                });
-            });
             services.AddSingleton<IConnectionMultiplexer>(c =>
             {
                 var redisConnectionString = config.GetConnectionString("Redis")

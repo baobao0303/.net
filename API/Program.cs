@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.AddSwaggerDocumentation();
 
 // Configure CORS
 builder.Services.AddCors(options =>
@@ -30,8 +31,6 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
     app.MapOpenApi();
 }
 
@@ -47,6 +46,8 @@ app.UseAuthorization();
 // Middleware for exception handling and status code pages
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
+
+app.UseSwaggerDocumentation();
 
 // HTTPS, static files, authorization
 app.UseHttpsRedirection();
