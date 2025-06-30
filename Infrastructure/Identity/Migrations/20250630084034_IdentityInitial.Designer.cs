@@ -11,14 +11,50 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20250629203907_AddressFix")]
-    partial class AddressFix
+    [Migration("20250630084034_IdentityInitial")]
+    partial class IdentityInitial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.6");
+
+            modelBuilder.Entity("Core.Entities.Identity.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("City")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("State")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ZipCode")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique();
+
+                    b.ToTable("Addresses");
+                });
 
             modelBuilder.Entity("Core.Entities.Identity.AppUser", b =>
                 {
@@ -215,54 +251,15 @@ namespace Infrastructure.Identity.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Core.Entities.Identity.AppUser", b =>
+            modelBuilder.Entity("Core.Entities.Identity.Address", b =>
                 {
-                    b.OwnsOne("Core.Entities.Identity.Address", "Address", b1 =>
-                        {
-                            b1.Property<string>("AppUserId")
-                                .HasColumnType("TEXT");
+                    b.HasOne("Core.Entities.Identity.AppUser", "AppUser")
+                        .WithOne("Address")
+                        .HasForeignKey("Core.Entities.Identity.Address", "AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                            b1.Property<string>("AppUserId1")
-                                .HasColumnType("TEXT");
-
-                            b1.Property<string>("City")
-                                .HasColumnType("TEXT");
-
-                            b1.Property<string>("FirstName")
-                                .HasColumnType("TEXT");
-
-                            b1.Property<int>("Id")
-                                .HasColumnType("INTEGER");
-
-                            b1.Property<string>("LastName")
-                                .HasColumnType("TEXT");
-
-                            b1.Property<string>("State")
-                                .HasColumnType("TEXT");
-
-                            b1.Property<string>("Street")
-                                .HasColumnType("TEXT");
-
-                            b1.Property<string>("ZipCode")
-                                .HasColumnType("TEXT");
-
-                            b1.HasKey("AppUserId");
-
-                            b1.HasIndex("AppUserId1");
-
-                            b1.ToTable("AspNetUsers");
-
-                            b1.WithOwner()
-                                .HasForeignKey("AppUserId");
-
-                            b1.HasOne("Core.Entities.Identity.AppUser", "AppUser")
-                                .WithMany()
-                                .HasForeignKey("AppUserId1");
-
-                            b1.Navigation("AppUser");
-                        });
-
-                    b.Navigation("Address");
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -314,6 +311,11 @@ namespace Infrastructure.Identity.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.Identity.AppUser", b =>
+                {
+                    b.Navigation("Address");
                 });
 #pragma warning restore 612, 618
         }

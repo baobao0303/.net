@@ -1,5 +1,3 @@
-
-
 using Core.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 
@@ -15,22 +13,26 @@ namespace Infrastructure.Identity
                 {
                     DisplayName = "Bob",
                     Email = "lMqf2@example.com",
-                    Address = new Address
+                    UserName = "lMqf2@example.com"
+                };
+
+                var result = await userManager.CreateAsync(user, "Pa$$w0rd");
+                if (result.Succeeded)
+                {
+                    var address = new Address
                     {
                         FirstName = "Bob",
                         LastName = "Bobbity",
                         Street = "10 The Street",
                         City = "New York",
                         State = "NY",
-                        ZipCode = "90210"
-                    }
-                };
-
-                await userManager.CreateAsync(user, "Pa$$w0rd");   
+                        ZipCode = "90210",
+                        AppUserId = user.Id
+                    };
+                    user.Address = address;
+                    await userManager.UpdateAsync(user);
                 }
-
-            
+            }
         }
-
     }
 }
