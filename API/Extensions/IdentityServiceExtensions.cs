@@ -32,8 +32,10 @@ namespace API.Extensions
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(config["Token:Key"]
                             ?? throw new InvalidOperationException("Token key is missing."))),
-                        ValidateIssuer = config["Token:Issuer"] != null,
-                        ValidateAudience = true
+                        ValidIssuer = config["Token:Issuer"],
+                        ValidateIssuer = true,
+                        ValidateAudience = false
+
                     };
                 }
             );
