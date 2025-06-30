@@ -1,7 +1,6 @@
 
 
 
-using System.Security.Claims;
 using API.Dtos;
 using API.Errors;
 using API.Extensions;
@@ -50,7 +49,7 @@ namespace API.Controllers
             return await _userManager.FindByEmailAsync(email) != null;
         }
 
-  
+
         [Authorize]
         [HttpGet("address")]
         public async Task<ActionResult<AddressDto>> GetUserAddress()
@@ -102,12 +101,11 @@ namespace API.Controllers
                 DisplayName = user.DisplayName
             };
         }
-
         // Register User
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
-           var emailExists = await CheckEmailExistsAsync(registerDto.Email);
+            var emailExists = await CheckEmailExistsAsync(registerDto.Email);
 
             if (emailExists.Value)
             {
@@ -134,6 +132,23 @@ namespace API.Controllers
                 DisplayName = user.DisplayName
             };
         }
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto forgotPasswordDto)
+        {
+                Console.WriteLine($"Reset token for {forgotPasswordDto.Email}");
 
+            var user = await _userManager.FindByEmailAsync(forgotPasswordDto.Email);
+
+            // Bảo mật: không tiết lộ user có tồn tại
+            if (user == null)
+                return Ok(new { message = "If the email exists, a reset link will be sent." });
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            // In token để kiểm tra, trong thực tế cần gửi email
+            Console.WriteLine($"Reset token for {user.Email}: {token}");
+
+            return Ok(new { message = "If the email exists, a reset link will be sent." });
+        }
     }
 }

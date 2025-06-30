@@ -23,7 +23,8 @@ namespace API.Extensions
                 // configure identity options
             })
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
-                .AddSignInManager<SignInManager<AppUser>>();
+                .AddSignInManager<SignInManager<AppUser>>()
+                .AddDefaultTokenProviders();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
                 options =>
                 {
