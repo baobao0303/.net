@@ -7,6 +7,7 @@ using API.Extensions;
 using AutoMapper;
 using Core.Entities.Identity;
 using Core.Interfaces;
+using Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,15 +20,17 @@ namespace API.Controllers
         private readonly SignInManager<AppUser> _signInManager;
 
         private readonly ITokenService _tokenService;
+        private readonly EmailService _emailService;
 
         private IMapper _mapper;
         public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
-        ITokenService tokenService, IMapper mapper)
+        ITokenService tokenService, IMapper mapper, EmailService emailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
             _mapper = mapper;
+            _emailService = emailService;
         }
 
         [Authorize]
@@ -94,6 +97,7 @@ namespace API.Controllers
 
             if (!result.Succeeded) return Unauthorized(new ApiResponse(401));
 
+            await _emailService.SendEmailAsync();
             return new UserDto
             {
                 Email = user.Email!,

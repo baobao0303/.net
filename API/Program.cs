@@ -1,6 +1,7 @@
 using API.Extensions;
 using API.Middleware;
 using Core.Entities.Identity;
+using Infrastructure;
 using Infrastructure.Data;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -13,6 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddSwaggerDocumentation();
+builder.Services.AddScoped<EmailService>();
+
 
 // Configure CORS
 builder.Services.AddCors(options =>
